@@ -43,5 +43,10 @@ namespace EfCoreApplication.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Edit()
+        {
+            return RedirectToAction("Index");
+        }
+
     }
 }

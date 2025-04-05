@@ -1,62 +1,86 @@
 ﻿@model Student
 
-<div class="container mt-5">
-    <div class="card shadow-sm border-0 rounded-4">
-        <div class="card-header bg-primary text-white fs-5 fw-semibold">
-            Öğrenci Bilgilerini Güncelle
-        </div>
-        <div class="card-body">
-            <form asp-controller="Student" asp-action="Edit" method="post">
-                <input type="hidden" asp-for="StudentId" />
-
-                <!-- Ad & Soyad -->
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label asp-for="StudentName" class="form-label">Ad</label>
-                        <input asp-for="StudentName" class="form-control" placeholder="Öğrencinin adı" />
-                        <span asp-validation-for="StudentName" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <label asp-for="StudentSurname" class="form-label">Soyad</label>
-                        <input asp-for="StudentSurname" class="form-control" placeholder="Öğrencinin soyadı" />
-                        <span asp-validation-for="StudentSurname" class="text-danger"></span>
-                    </div>
+<div class="row">
+    <div class="col-8">
+        <div class="container mt-5">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-header bg-primary text-white fs-5 fw-semibold">
+                    Öğrenci Bilgilerini Güncelle
                 </div>
+                <div class="card-body">
+                    <form asp-controller="Student" asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="StudentId" />
 
-                <!-- E-posta & Telefon -->
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label asp-for="Email" class="form-label">E-posta</label>
-                        <input asp-for="Email" class="form-control" placeholder="Öğrencinin e-posta adresi" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <label asp-for="Phone" class="form-label">Telefon</label>
-                        <input asp-for="Phone" class="form-control" placeholder="Öğrencinin telefon numarası" />
-                        <span asp-validation-for="Phone" class="text-danger"></span>
-                    </div>
-                </div>
+                        <!-- Ad & Soyad -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="StudentName" class="form-label">Ad</label>
+                                <input asp-for="StudentName" class="form-control" placeholder="Öğrencinin adı" />
+                                <span asp-validation-for="StudentName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="StudentSurname" class="form-label">Soyad</label>
+                                <input asp-for="StudentSurname" class="form-control" placeholder="Öğrencinin soyadı" />
+                                <span asp-validation-for="StudentSurname" class="text-danger"></span>
+                            </div>
+                        </div>
 
-                <!-- Cinsiyet Seçimi -->
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label asp-for="Gender" class="form-label">Cinsiyet</label>
-                        <select asp-for="Gender" class="form-select">
-                            <option value="">Cinsiyet Seçiniz</option>
-                            <option value="1">Erkek</option>
-                            <option value="2">Kadın</option>
-                        </select>
-                        <span asp-validation-for="Gender" class="text-danger"></span>
-                    </div>
-                </div>
+                        <!-- E-posta & Telefon -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="Email" class="form-label">E-posta</label>
+                                <input asp-for="Email" class="form-control" placeholder="Öğrencinin e-posta adresi" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Phone" class="form-label">Telefon</label>
+                                <input asp-for="Phone" class="form-control" placeholder="Öğrencinin telefon numarası" />
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                        </div>
 
-                <!-- Güncelleme Butonu -->
-                <div class="text-end">
-                    <button type="submit" class="btn btn-success">
-                        <i class="bi bi-check-circle"></i> Güncelle
-                    </button>
+                        <!-- Cinsiyet Seçimi -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="Gender" class="form-label">Cinsiyet</label>
+                                <select asp-for="Gender" class="form-select">
+                                    <option value="">Cinsiyet Seçiniz</option>
+                                    <option value="1">Erkek</option>
+                                    <option value="2">Kadın</option>
+                                </select>
+                                <span asp-validation-for="Gender" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Güncelleme Butonu -->
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> Güncelle
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
+    <div class="col-4">
+        <div class="container mt-5">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-header bg-primary text-white fs-5 fw-semibold">
+                    <div class="card-header bg-primary text-white fs-5 fw-semibold">
+                         Öğrenci Detay
+                    </div>
+                </div>
+            </div>
+       </div>
+       <ul>
+            @foreach(var item in @Model.CourseRegistrations)
+            {
+                <li>@item.Course.Title</li>
+          
+            }
+        </ul>
+    </div>
 </div>
+
+

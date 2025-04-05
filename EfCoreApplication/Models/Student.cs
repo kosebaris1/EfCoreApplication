@@ -29,6 +29,8 @@ namespace EfCoreApplication.Models
 
         [Required]
         public Gender Gender { get; set;}
+
+        public ICollection<CourseRegistration> CourseRegistrations { get; set; } = new List<CourseRegistration>();
     }
 
     public enum Gender

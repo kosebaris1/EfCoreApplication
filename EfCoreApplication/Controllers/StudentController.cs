@@ -42,7 +42,11 @@ namespace EfCoreApplication.Controllers
             }
 
             //var ogr= await _context.Ogrenciler.FindAsync(id);
-            var ogr = await _context.Students.FirstOrDefaultAsync(o => o.StudentId == id);
+            var ogr = await _context
+                            .Students
+                            .Include(x => x.CourseRegistrations)
+                            .ThenInclude(o => o.Course)
+                            .FirstOrDefaultAsync(o => o.StudentId == id);
 
             if (ogr == null)
             {
