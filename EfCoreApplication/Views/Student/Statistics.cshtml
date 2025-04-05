@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Öğrenci İstatistikleri";
+}
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">📊 Öğrenci İstatistikleri</h2>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white fw-semibold">Toplam Öğrenci Sayısı</div>
+                <div class="card-body text-center">
+                    <h3>@ViewBag.TotalOgrenci</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white fw-semibold">Cinsiyete Göre Dağılım</div>
+                <div class="card-body">
+                    <canvas id="genderChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white fw-semibold">Bölümlere Göre Öğrenci Sayısı</div>
+                <div class="card-body">
+                    <canvas id="bolumChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Cinsiyet Grafiği
+        var genderCtx = document.getElementById('genderChart').getContext('2d');
+        var genderChart = new Chart(genderCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Erkek', 'Kadın'],
+                datasets: [{
+                    data: [@ViewBag.ErkekSayisi, @ViewBag.KadinSayisi],
+                    backgroundColor: ['#0d6efd', '#dc3545']
+                }]
+            }
+        });
+
+        // Bölüm Grafiği
+        var bolumCtx = document.getElementById('bolumChart').getContext('2d');
+        var bolumChart = new Chart(bolumCtx, {
+            type: 'bar',
+            data: {
+                labels: @Html.Raw(Json.Serialize(ViewBag.Bolumler)),
+                datasets: [{
+                    label: 'Öğrenci Sayısı',
+                    data: @Html.Raw(Json.Serialize(ViewBag.BolumSayilari)),
+                    backgroundColor: '#20c997'
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+}

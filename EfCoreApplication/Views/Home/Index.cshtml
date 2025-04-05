@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Öğrenci Yönetim Paneli";
+}
+
+<div class="container my-5">
+    <div class="jumbotron text-center p-5 bg-light rounded shadow">
+        <h1 class="display-4 text-primary">Öğrenci Yönetim Paneli</h1>
+        <p class="lead">Öğrencilerinizi kolayca ekleyin, listeleyin ve yönetin.</p>
+        <hr class="my-4">
+        <p>Yeni öğrenci ekleyebilir veya mevcut öğrenci kayıtlarını inceleyebilirsiniz.</p>
+        <a class="btn btn-primary btn-lg me-2" href="@Url.Action("Index", "Student")" role="button">
+            <i class="bi bi-people-fill"></i> Öğrenci Listesi
+        </a>
+        <a class="btn btn-success btn-lg" href="@Url.Action("Create", "Student")" role="button">
+            <i class="bi bi-person-plus"></i> Yeni Öğrenci Ekle
+        </a>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4 mb-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Öğrenci Ekle</h5>
+                    <p class="card-text">Yeni bir öğrenci kaydı oluşturun ve sisteme ekleyin.</p>
+                    <a href="@Url.Action("Create", "Student")" class="btn btn-success">
+                        <i class="bi bi-plus-circle"></i> Ekle
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Öğrenci Listesi</h5>
+                    <p class="card-text">Kayıtlı tüm öğrencileri görüntüleyin ve düzenleyin.</p>
+                    <a href="@Url.Action("Index", "Student")" class="btn btn-primary">
+                        <i class="bi bi-list-ul"></i> Listele
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">İstatistikler</h5>
+                    <p class="card-text">Öğrenci kayıtlarına dair detaylı istatistikleri inceleyin.</p>
+                    <a href="@Url.Action("Statistics", "Student")" class="btn btn-info">
+                        <i class="bi bi-graph-up"></i> İncele
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

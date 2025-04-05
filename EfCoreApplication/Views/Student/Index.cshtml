@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Student>
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-header bg-primary text-white fs-5 fw-semibold d-flex justify-content-between align-items-center">
+            <span>Öğrenci Listesi</span>
+            <a asp-controller="Student" asp-action="Create" class="btn btn-light btn-sm">
+                <i class="bi bi-plus-circle"></i> Öğrenci Ekle
+            </a>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>@Html.DisplayNameFor(m => m.First().StudentId)</th>
+                            <th>@Html.DisplayNameFor(m => m.First().StudentName)</th>
+                            <th>@Html.DisplayNameFor(m => m.First().StudentSurname)</th>
+                            <th>@Html.DisplayNameFor(m => m.First().Email)</th>
+                            <th>@Html.DisplayNameFor(m => m.First().Phone)</th>
+                            <th>@Html.DisplayNameFor(m => m.First().Gender)</th>
+
+                            <th class="text-center">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.StudentId</td>
+                                <td>@item.StudentName</td>
+                                <td>@item.StudentSurname</td>
+                                <td>@item.Email</td>
+                                <td>@item.Phone</td>
+                                <td>@item.Gender</td>
+                                <td class="text-center">
+                                    <a asp-controller="Student" asp-action="Edit" asp-route-id="@item.StudentId" class="btn btn-sm btn-outline-primary me-1">
+                                        <i class="bi bi-eye"></i> Edit
+                                    </a>
+
+                                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-@item.StudentId">
+                                        Sil
+                                    </button>
+
+                                    <div class="modal fade" id="deleteModal-@item.StudentId" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <form asp-controller="Student" asp-action="Delete" method="post">
+                                                    <div class="modal-header bg-danger text-white">
+                                                        <h5 class="modal-title" id="deleteModalLabel">Silme Onayı</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <input type="hidden" name="id" value="@item.StudentId" />
+                                                        <strong>@item.StudentName @item.StudentSurname</strong> adlı öğrenciyi silmek istediğinize emin misiniz?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                                                        <button type="submit" class="btn btn-danger">Evet, Sil</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

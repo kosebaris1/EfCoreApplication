@@ -1,0 +1,60 @@
+﻿@model EfCoreApplication.Models.Student
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-header bg-success text-white fs-5 fw-semibold">
+            Yeni Öğrenci Ekle
+        </div>
+        <div class="card-body">
+            <form asp-controller="Student" asp-action="Create" method="post">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="StudentName" class="form-label">Ad</label>
+                        <input asp-for="StudentName" class="form-control" />
+                        <span asp-validation-for="StudentName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="StudentSurname" class="form-label">Soyad</label>
+                        <input asp-for="StudentSurname" class="form-control" />
+                        <span asp-validation-for="StudentSurname" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="Email" class="form-label">E-posta</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Phone" class="form-label">Telefon</label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Gender Dropdown -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="Gender" class="form-label">Cinsiyet</label>
+                        <select asp-for="Gender" class="form-select">
+                            <option value="">Seçiniz</option>
+                            <option value="1">Erkek</option>
+                            <option value="2">Kadın</option>
+                        </select>
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-check-circle"></i> Kaydet
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
