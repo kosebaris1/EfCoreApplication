@@ -1,0 +1,24 @@
+﻿@model CourseRegistration
+<h2>Kurs kayıt ekleme</h2>
+<form asp-controller="CourseRegistration" asp-action="Create" method="post">
+      <div class="row mb-3">
+        <div class="col-md-6">
+            <label asp-for="StudentId" class="form-label">Öğrenci Seçiniz</label>
+           <select asp-for="StudentId" asp-items="ViewBag.Students" class="form-control">
+           <option value="">Seçiniz</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="CourseId" class="form-label">Kurs Seçiniz</label>
+            <select asp-for="CourseId" asp-items="ViewBag.Courses" class="form-control">
+            <option value="">Seçiniz</option>
+            </select>
+        </div>
+      </div>
+               
+      <div class="text-end">
+         <button type="submit" class="btn btn-success">
+             <i class="bi bi-check-circle"></i> Kaydet
+         </button>
+      </div>
+</form>

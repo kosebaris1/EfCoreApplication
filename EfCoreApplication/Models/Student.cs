@@ -14,6 +14,13 @@ namespace EfCoreApplication.Models
         [Display(Name = "Ögrenci Soyad")]
         public string? StudentSurname { get; set; }
 
+        public string? NameAndSurname {
+            get
+            {
+                return this.StudentName+" "+this.StudentSurname;
+            }
+        }
+
         [EmailAddress]
         public string? Email { get; set; }
 
