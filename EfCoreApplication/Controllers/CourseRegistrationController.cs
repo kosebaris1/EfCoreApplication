@@ -14,9 +14,15 @@ namespace EfCoreApplication.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var courseRegistration = await _context
+                                          .CourseRegistrations
+                                          .Include(x => x.Student)
+                                          .Include(x => x.Course)
+                                          .ToListAsync();
+
+            return View(courseRegistration);
         }
 
         public async Task<IActionResult> Create()
