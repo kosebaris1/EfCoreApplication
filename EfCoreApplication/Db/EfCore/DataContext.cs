@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace EfCoreApplication.Db
+namespace EfCoreApplication.Db.EfCore
 {
     public class DataContext : DbContext
     {

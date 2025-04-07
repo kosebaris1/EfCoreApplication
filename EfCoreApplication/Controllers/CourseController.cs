@@ -1,4 +1,4 @@
-﻿using EfCoreApplication.Db;
+﻿using EfCoreApplication.Db.AbstractBase;
 using EfCoreApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,16 +7,16 @@ namespace EfCoreApplication.Controllers
 {
     public class CourseController : Controller
     {
-        private readonly DataContext _context;
+        private readonly ICourseRepository _courseRepository;
 
-        public CourseController(DataContext context)
+        public CourseController(ICourseRepository courseRepository)
         {
-            _context = context;
+            _courseRepository = courseRepository;
         }
 
         public async Task<IActionResult> Index()
         {
-            var courses = await _context.Courses.ToListAsync();
+            var courses = await _courseRepository.Courses.ToListAsync();
             return View(courses);
         }
 
@@ -28,21 +28,23 @@ namespace EfCoreApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Course model)
         {
-            _context.Courses.Add(model);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                await _courseRepository.AddCourseAsync(model);
+                await _courseRepository.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
-        public async Task<IActionResult> EditAsync(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            //var ogr= await _context.Ogrenciler.FindAsync(id);
-            var course = await _context.Courses.FirstOrDefaultAsync(o => o.CourseId == id);
-
+            var course = await _courseRepository.GetCourseByIdAsync(id.Value);
             if (course == null)
             {
                 return NotFound();
@@ -52,42 +54,37 @@ namespace EfCoreApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id,Course course)
+        public async Task<IActionResult> Edit(int id, Course course)
         {
             if (id != course.CourseId)
             {
                 return NotFound();
             }
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Courses.Update(course);
-                    await _context.SaveChangesAsync();
+                    await _courseRepository.UpdateCourseAsync(course);
+                    await _courseRepository.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_context.Courses.Any(o => o.CourseId == course.CourseId))
+                    if (!await _courseRepository.Courses.AnyAsync(c => c.CourseId == course.CourseId))
                     {
                         return NotFound();
                     }
                 }
-
-                return RedirectToAction("Index");
             }
             return View(course);
         }
 
         [HttpPost]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var course = _context.Courses.FirstOrDefault(x => x.CourseId == id);
-            if (course != null)
-            {
-                _context.Courses.Remove(course);
-                _context.SaveChanges();
-            }
+            await _courseRepository.DeleteCourseAsync(id);
+            await _courseRepository.SaveChangesAsync();
             return RedirectToAction("Index");
         }
     }

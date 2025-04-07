@@ -1,4 +1,5 @@
-using EfCoreApplication.Db;
+using EfCoreApplication.Db.AbstractBase;
+using EfCoreApplication.Db.EfCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace EfCoreApplication
@@ -18,6 +19,9 @@ namespace EfCoreApplication
                 options.UseSqlServer(connectionString);
             });
 
+            builder.Services.AddScoped<IStudentRepository, EfStudentRepository>();
+            builder.Services.AddScoped<ICourseRepository, EfCourseRepository>();
+            builder.Services.AddScoped<ICourseRegistrationRepository, EfCourseRegistrationRepository>();
 
             var app = builder.Build();
 
