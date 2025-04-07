@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EfCoreApplication.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250405001833_InitialCreate")]
+    [Migration("20250407093822_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -60,6 +60,10 @@ namespace EfCoreApplication.Migrations
 
                     b.HasKey("RegistrationId");
 
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("StudentId");
+
                     b.ToTable("CourseRegistrations");
                 });
 
@@ -89,6 +93,30 @@ namespace EfCoreApplication.Migrations
                     b.HasKey("StudentId");
 
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("EfCoreApplication.Models.CourseRegistration", b =>
+                {
+                    b.HasOne("EfCoreApplication.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EfCoreApplication.Models.Student", "Student")
+                        .WithMany("CourseRegistrations")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("EfCoreApplication.Models.Student", b =>
+                {
+                    b.Navigation("CourseRegistrations");
                 });
 #pragma warning restore 612, 618
         }
